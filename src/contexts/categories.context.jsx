@@ -1,0 +1,33 @@
+import { createContext, useState, useEffect } from 'react'
+
+import SHOP_DATA from '../shop-data.js'
+
+import { addCollectionAndDocuments, getCategoriesAndDocuments } from '../utils/firebase/firebase.utils'
+
+
+// the actual value you want to access
+export const CategoriesContext = createContext({
+    categoriesMap: {},
+});
+
+
+export const CategoriesProvider = ({ children }) => {
+    const [categoriesMap, setCategoriesMap] = useState({});
+
+    // if using async in useEffect, wrap in a async function rather than using it directly
+    useEffect(() => {
+        const getCategoriesMap = async () => {
+            const categoryMap = await getCategoriesAndDocuments();
+            setCategoriesMap(categoryMap);
+        };
+
+        getCategoriesMap();
+        
+    }, []);
+
+    const value = { categoriesMap };
+
+    return (
+        <CategoriesContext.Provider value={value}>{children}</CategoriesContext.Provider>
+    )
+}
