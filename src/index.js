@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/es/integration/react";
+import { PersistGate } from "redux-persist/lib";
 import { Elements } from "@stripe/react-stripe-js";
 
 import App from "./App";
